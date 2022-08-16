@@ -106,7 +106,7 @@ exports.DeletePost = async (req, res, next) => {
 
 exports.getAllPosts = async (req, res, next) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().sort({ createdAt: -1 });
     if(posts){
         res.json({
             status: true,
@@ -157,7 +157,7 @@ exports.getPostByTitle = async (req, res, next) => {
     try {
       const post = await Post.find({
         title: { $regex: title, $options: "i"}
-      });
+      }).sort({ createdAt: -1 });
       if(post){
           res.status(200).json({
           status: true,
