@@ -108,12 +108,12 @@ exports.getAllPosts = async (req, res, next) => {
   try {
     const posts = await Post.find();
     if(posts){
-        res.status(200).json({
+        res.json({
             status: true,
             data: posts,
         });
     }else{
-        res.status(403).json({
+        res.json({
             status: false,
             message: "Post not found",
           });
