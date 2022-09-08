@@ -12,11 +12,18 @@ const postSchema = mongoose.Schema({
     content:{
         type: String
     },
+    tags:[{
+        type: String
+    }],
     image_url:{
         type: String
     },
     image_id:{
         type: String
+    },
+    draft:{
+        type: Boolean,
+        default: false
     }
     
 }, 

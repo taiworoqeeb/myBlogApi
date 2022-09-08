@@ -2,7 +2,7 @@ const Post = require("../models/postModel");
 const Cloudinary = require("../util/cloudinary")
 
 exports.CreatePost = async (req, res, next) => {
-    const {title, desc, content} = req.body;
+    const {title, desc, content, tags, draft} = req.body;
   try {
     await Post.findOne({
         title: title
@@ -19,6 +19,8 @@ exports.CreatePost = async (req, res, next) => {
                     title,
                     desc,
                     content,
+                    tags,
+                    draft,
                     image_url: result.secure_url,
                     image_id: result.public_id
                 })
@@ -27,7 +29,9 @@ exports.CreatePost = async (req, res, next) => {
                 new_post = new Post({
                     title,
                     desc,
-                    content
+                    tags,
+                    content,
+                    draft
                 })
                 savedPost = await new_post.save()
             }
@@ -50,7 +54,7 @@ exports.CreatePost = async (req, res, next) => {
 };
 
 exports.UpdatePost = async (req, res, next) => {
-    const {title, content, desc} = req.body
+    const {title, content, desc, tags, draft} = req.body
   try {
     await Post.findById(req.params.id)
     .then(async(post)=>{
@@ -58,7 +62,9 @@ exports.UpdatePost = async (req, res, next) => {
             await Post.findByIdAndUpdate(post._id, {
                 title,
                 content,
-                desc
+                tags,
+                desc,
+                draft
             });
                 res.status(200).json({
                     status: true,
@@ -106,7 +112,9 @@ exports.DeletePost = async (req, res, next) => {
 
 exports.getAllPosts = async (req, res, next) => {
   try {
-    const posts = await Post.find().sort({ createdAt: -1 });
+    const posts = await Post.find({
+      draft: false
+    }).sort({ createdAt: -1 });
     if(posts){
         res.json({
             status: true,
@@ -127,6 +135,32 @@ exports.getAllPosts = async (req, res, next) => {
     next(err)
   }
 };
+
+exports.getDraftPosts = async(req, res, next) =>{
+  try{
+  const posts = await Post.find({
+    draft: true
+  }).sort({ createdAt: -1 });
+  if(posts){
+      res.json({
+          status: true,
+          data: posts,
+      });
+  }else{
+      res.json({
+          status: false,
+          message: "Post not found",
+        });
+  }
+  
+} catch (err) {
+  console.error(err)
+  res.status(500).json({
+    message: err,
+  });
+  next(err)
+}
+}
 
 exports.getPost = async (req, res, next) => {
   try {
@@ -178,8 +212,6 @@ exports.getPostByTitle = async (req, res, next) => {
       next(err)
     }
   };
-
-
 
 
 exports.removeImage = async(req, res, next)=>{
