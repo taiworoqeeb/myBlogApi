@@ -277,3 +277,25 @@ exports.updateImage = async(req, res, next)=>{
         next(error)
     }
 }
+
+exports.uploadFile = async(req, res, next)=>{
+  try{
+     if(req.file.path){
+    var result = await Cloudinary.uploader.upload(req.file.path, {folder: "myBlogInnerImage"})
+
+    return res.json({
+      status: true,
+      url: result.secure_url
+    })
+   }else{
+    return res.json({
+      status: false,
+      message: "Image not sent"
+    })
+   }
+  }catch(err){
+    console.log(err)
+    next(err)
+  }
+  
+}

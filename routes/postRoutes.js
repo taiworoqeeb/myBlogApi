@@ -36,6 +36,10 @@ router
 .route('/getPostByTitle')
 .get(postController.getPostByTitle);
 
+router
+.route('/uploadImage')
+.post(multer.single('image'), postController.uploadFile)
+
 
 
 module.exports = router;
