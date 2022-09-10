@@ -36,17 +36,15 @@ exports.CreatePost = async (req, res, next) => {
                 savedPost = await new_post.save()
             }
             
-            if(draft === false){
-               res.status(200).json({
+            if(savedPost.draft == false){
+               return res.status(200).json({
                 status: true,
-                message: "Post published successfully!",
-                savedPost,
+                message: "Post published successfully!"
               });
-            }else if(draft === true){
-              res.status(200).json({
+            }else if(savedPost.draft == true){
+              return res.status(200).json({
                 status: true,
-                message: "Post drafted successfully!",
-                savedPost,
+                message: "Post drafted successfully!"
               });
             }
            
