@@ -10,7 +10,7 @@ exports.CreatePost = async (req, res, next) => {
         if(post){
             res.status(401).json({
                 status: false,
-                message: `Post with ${title} exists`
+                message: `Post with ${title} already exist`
             })
         }else{
             if(req.file.path){
@@ -36,18 +36,29 @@ exports.CreatePost = async (req, res, next) => {
                 savedPost = await new_post.save()
             }
             
-            res.status(200).json({
+            if(!draft){
+               res.status(200).json({
                 status: true,
-                message: "Post created successful",
+                message: "Post published successfully!",
                 savedPost,
-            });
+              });
+            }else{
+              res.status(200).json({
+                status: true,
+                message: "Post drafted successfully!",
+                savedPost,
+              });
+            }
+           
         }
     })
     
   } catch (err) {
     console.error(err);
     res.json({
-      message: err,
+      status: false,
+      message: "An error occured",
+      err
     });
     next(err)
   }
@@ -280,22 +291,22 @@ exports.updateImage = async(req, res, next)=>{
 
 exports.uploadFile = async(req, res, next)=>{
   try{
-     if(req.file.path){
-    var result = await Cloudinary.uploader.upload(req.file.path, {folder: "myBlogInnerImage"})
+      if(req.file.path){
+        var result = await Cloudinary.uploader.upload(req.file.path, {folder: "myBlogInnerImage"})
 
-    return res.json({
-      status: true,
-      url: result.secure_url
-    })
-   }else{
-    return res.json({
-      status: false,
-      message: "Image not sent"
-    })
-   }
+        return res.json({
+          status: true,
+          url: result.secure_url
+        })
+      }else{
+        return res.json({
+          status: false,
+          message: "Image not sent"
+        })
+      }
   }catch(err){
-    console.log(err)
-    next(err)
+      console.log(err)
+      next(err)
   }
   
 }
