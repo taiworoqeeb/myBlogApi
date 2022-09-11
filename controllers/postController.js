@@ -113,7 +113,9 @@ exports.DeletePost = async (req, res, next) => {
   } catch (err) {
     console.error(err)
     res.status(500).json({
-      message: err,
+      status: false,
+      message: 'An error occured',
+      err
     });
     next(err)
   }
