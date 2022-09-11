@@ -13,6 +13,10 @@ router
 .get(postController.getAllPosts);
 
 router
+.route('/getDraftPosts')
+.get(postController.getDraftPosts);
+
+router
 .route('/updatePost/:id')
 .put(postController.UpdatePost)
 
