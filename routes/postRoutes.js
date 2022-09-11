@@ -30,11 +30,11 @@ router
 
 router
 .route('/removeImage/:id')
-.get(postController.removeImage);
+.delete(postController.removeImage);
 
 router
 .route('/updateImage/:id')
-.get(multer.single('image'), postController.updateImage);
+.put(multer.single('image'), postController.updateImage);
 
 router
 .route('/getPostByTitle')
