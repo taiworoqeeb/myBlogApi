@@ -266,11 +266,12 @@ exports.updateImage = async(req, res, next)=>{
                     })
                     res.json({
                         status: true,
-                        message: "Image Updated"
+                        message: "Image Updated",
+                        data: result.secure_url,
                     })
                 }else{
                     res.json({
-                        status: true,
+                        status: false,
                         message: "No Image Selected"
                     })
                 }
