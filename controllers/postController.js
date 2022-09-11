@@ -232,8 +232,8 @@ exports.removeImage = async(req, res, next)=>{
             if(post){
                 await Cloudinary.uploader.destroy(post.image_id)
                 await Post.findByIdAndUpdate(post._id, {
-                    image_url: "#",
-                    image_id: "#"
+                    image_url: null,
+                    image_id: null
                 })
                 res.json({
                     status: true,
