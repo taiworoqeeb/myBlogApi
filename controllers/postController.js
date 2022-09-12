@@ -70,11 +70,11 @@ exports.UpdatePost = async (req, res, next) => {
     .then(async(post)=>{
         if(post){
             await Post.findByIdAndUpdate(post._id, {
-                title,
-                content,
-                tags,
-                desc,
-                draft
+                title: title,
+                content: content,
+                tags: tags,
+                desc: desc,
+                draft: draft
             });
                 res.status(200).json({
                     status: true,
