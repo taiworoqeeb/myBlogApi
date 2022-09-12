@@ -63,6 +63,7 @@ exports.CreatePost = async (req, res, next) => {
 };
 
 exports.UpdatePost = async (req, res, next) => {
+  console.log(req.body)
     const {title, content, desc, tags, draft} = req.body
   try {
     await Post.findById(req.params.id)
