@@ -4,7 +4,7 @@ const app = express();
 const cors = require('cors')
 const morgan = require('morgan')
 const postRouter = require('./routes/postRoutes');
-// const userRouter = require('./routes/userRoutes');
+const userRouter = require('./routes/userRoutes');
 
 app.use(cors({
     "origin": "*",
@@ -15,6 +15,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/blog', postRouter);
-// app.use('/api/blog', userRouter);
+app.use('/api/user', userRouter);
 
 module.exports = app;

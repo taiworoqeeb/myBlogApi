@@ -106,7 +106,7 @@ exports.DeletePost = async (req, res, next) => {
             message: "deleted successfully",
         });
     } else {
-      res.status(403).json({
+      res.status(404).json({
         status: false,
         message: "Post not found",
       });
@@ -183,7 +183,7 @@ exports.getPost = async (req, res, next) => {
         data: post,
         });
     }else{
-        res.status(403).json({
+        res.status(404).json({
             status: false,
             message: "Post not found",
         });
@@ -210,7 +210,7 @@ exports.getPostByTitle = async (req, res, next) => {
           data: post,
           });
       }else{
-          res.status(403).json({
+          res.status(404).json({
               status: false,
               message: "Post not found",
           });
@@ -241,7 +241,7 @@ exports.removeImage = async(req, res, next)=>{
                     message: "Image Removed"
                 })
             }else{
-                res.status(403).json({
+                res.status(404).json({
                     status: false,
                     message: "Post not found",
                   });
@@ -278,7 +278,7 @@ exports.updateImage = async(req, res, next)=>{
                 }
                 
             }else{
-                res.status(403).json({
+                res.status(404).json({
                     status: false,
                     message: "Post not found",
                   });
