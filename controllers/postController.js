@@ -2,7 +2,7 @@ const Post = require("../models/postModel");
 const Cloudinary = require("../util/cloudinary")
 
 exports.CreatePost = async (req, res, next) => {
-    const {title, desc, content, tags, draft} = req.body;
+    var {title, desc, content, tags, draft} = req.body;
   try {
     await Post.findOne({
         title: title
@@ -16,22 +16,22 @@ exports.CreatePost = async (req, res, next) => {
             if(req.file.path){
                 var result = await Cloudinary.uploader.upload(req.file.path, {folder: "myBlogImage"})
                 var new_post = new Post({
-                    title,
-                    desc,
-                    content,
-                    tags,
-                    draft,
+                    title: title,
+                    desc: desc,
+                    content: content,
+                    tags: tags,
+                    draft: draft,
                     image_url: result.secure_url,
                     image_id: result.public_id
                 })
                 var savedPost = await new_post.save()
             }else{
                 new_post = new Post({
-                    title,
-                    desc,
-                    tags,
-                    content,
-                    draft
+                    title: title,
+                    desc: desc,
+                    content: content,
+                    tags: tags,
+                    draft: draft,
                 })
                 savedPost = await new_post.save()
             }
@@ -64,7 +64,7 @@ exports.CreatePost = async (req, res, next) => {
 
 exports.UpdatePost = async (req, res, next) => {
   console.log(req.body)
-    const {title, content, desc, tags, draft} = req.body
+    var {title, content, desc, tags, draft} = req.body
   try {
     await Post.findById(req.params.id)
     .then(async(post)=>{
