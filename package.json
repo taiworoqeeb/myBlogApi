@@ -1,7 +1,7 @@
 {
   "name": "myblogapi",
   "version": "1.0.0",
-  "description": "my test blog",
+  "description": "myblog",
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
