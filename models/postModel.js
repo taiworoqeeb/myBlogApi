@@ -24,7 +24,11 @@ const postSchema = mongoose.Schema({
     draft:{
         type: Boolean,
         default: false
-    }
+    },
+    comments:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comments'
+    }]
     
 }, 
 {timestamps: true}
