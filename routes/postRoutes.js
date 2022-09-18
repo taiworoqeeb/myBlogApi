@@ -46,8 +46,8 @@ router
 
 router.post('/addComment/:postId', postController.addComment);
 router.post('/addReply/:commentId', postController.addReply);
-router.put('/vote/:commentId', postController.voteComment);
-router.put('/vote/:replyId', postController.voteReply);
+router.put('/commentvote/:commentId', postController.voteComment);
+router.put('/replyvote/:replyId', postController.voteReply);
 router.delete('/deleteComment/:commentId', postController.deleteComment);
 router.delete('/deleteReply/:replyId', postController.deleteReply);
 router.put('/updateComment/:commentId', postController.updateComment);
