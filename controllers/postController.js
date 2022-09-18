@@ -349,9 +349,9 @@ exports.addComment = async(req, res, next)=>{
 
             var Out = await new_comment.save()
 
-            await Post.findByIdAndUpdate(checkId._id, {
+            await Post.findByIdAndUpdate(id, {
               $push: {comments: Out._id}
-          },{new: true})
+          },{new: true}).catch(err => console.log(err))
 
             res.status(201).json({
                 status: true,
